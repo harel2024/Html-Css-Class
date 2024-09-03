@@ -1,0 +1,18 @@
+(function () {
+	async function detectAdBlock() {
+		let adBlockEnabled = false;
+		const googleAdUrl = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
+		try {
+			await fetch(new Request(googleAdUrl)).catch(_ => (adBlockEnabled = true));
+			console.log('try');
+		} catch (e) {
+			console.log('catch');
+			adBlockEnabled = true;
+			console.log('adBlock', adBlockEnabled);
+		} finally {
+			sessionStorage.setItem('isAdBlock', adBlockEnabled);
+			console.log(`AdBlock Enabled: ${adBlockEnabled}`);
+		}
+	}
+	detectAdBlock();
+})();
